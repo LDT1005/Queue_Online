@@ -1,5 +1,5 @@
 
-# 📦 CourseProject_NhomXX - Hệ thống Quản lý Đơn đặt hàng Trực tuyến
+# 📦 CourseProject_Nhom08 - Hệ thống Quản lý Đơn đặt hàng Trực tuyến
 
 ![C++](https://img.shields.io/badge/C++-11-blue.svg)
 ![Build](https://img.shields.io/badge/build-in%20progress-yellow.svg)
