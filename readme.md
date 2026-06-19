@@ -41,38 +41,22 @@ Hệ thống vận hành dựa trên 2 luồng dữ liệu song song trong bộ 
 ## 📂 4. Cấu trúc Thư mục
 
 ```text
-CourseProject_NhomXX/
+QUEUE_ONLINE/
 ├── src/
-│   ├── Structure.h
-│   ├── Queue.h
-│   ├── Queue.cpp
-│   ├── Algorithms.h
 │   ├── Algorithms.cpp
-│   ├── DataProcess.h
+│   ├── Algorithms.h
 │   ├── DataProcess.cpp
-│   └── main.cpp
+│   ├── DataProcess.h
+│   ├── main.cpp
+│   ├── Queue.cpp
+│   ├── Queue.h
+│   └── Structure.h
 │
-├── data/
-│   ├── DemoData_NhomXX.txt
-│   ├── TestData_100.txt
-│   ├── TestData_1000.txt
-│   └── TestData_10000.txt
-│
-├── docs/
-│   ├── Report_NhomXX.docx
-│   └── Report_NhomXX.pdf
-│
-├── screenshots/
-│   ├── menu.png
-│   ├── add-order.png
-│   ├── process-order.png
-│   ├── search-by-date.png
-│   └── statistics.png
-│
-├── build/
-├── README.md
-└── .gitignore
-
+├── .gitignore
+├── DemoData_Nhom08.txt
+├── readme.md
+├── Report_Nhom08.docx
+└── TestData_Nhom08.txt
 ```
 
 ---
