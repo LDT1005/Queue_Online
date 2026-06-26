@@ -8,6 +8,11 @@ build/
 # IDE files
 .vscode/
 .idea/
+.vs/
+*.user
+*.suo
+bin/
+obj/
 
 # OS files
 .DS_Store
