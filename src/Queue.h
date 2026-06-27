@@ -1,4 +1,3 @@
-﻿#prama once
 
 #include "Structure.h"
 
@@ -28,5 +27,4 @@ bool deleteOrderFromList(List& l, string maDonHang);
 
 //clear bộ nhớ
 void clearQueue(Queue& q);
-void clearList(List& l);
 
