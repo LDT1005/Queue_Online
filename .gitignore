@@ -1,1 +1,22 @@
-.vs/ 
+# Build files
+build/
+*.exe
+*.out
+*.o
+*.obj
+
+# IDE files
+.idea/
+.vs/
+*.user
+*.suo
+bin/
+obj/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
