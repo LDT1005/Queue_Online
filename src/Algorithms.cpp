@@ -1,5 +1,6 @@
 #include "Algorithms.h"
 #include <iostream>
+#include <chrono>
 #include <algorithm> // std::swap
 
 // 1. Hàm so sánh 2 đơn hàng (Đã tối ưu Pass-by-Reference)
@@ -145,7 +146,6 @@ void filterByStatus(const Queue& choDuyet, const List& dsDonDaXuLy, int trangTha
     Node* pQueue = choDuyet.pHead;
     while (pQueue != NULL) {
         if (pQueue->data.trangThai == trangThai) {
-            // Đã bổ sung in Trang thai
             std::cout << "Ma DH: " << pQueue->data.maDonHang 
                  << " | Khach: " << pQueue->data.tenKhachHang 
                  << " | Ngay: " << pQueue->data.ngayTao
@@ -160,7 +160,6 @@ void filterByStatus(const Queue& choDuyet, const List& dsDonDaXuLy, int trangTha
     Node* pList = dsDonDaXuLy.pHead;
     while (pList != NULL) {
         if (pList->data.trangThai == trangThai) {
-            // Đã bổ sung in Trang thai
             std::cout << "Ma DH: " << pList->data.maDonHang 
                  << " | Khach: " << pList->data.tenKhachHang 
                  << " | Ngay: " << pList->data.ngayTao
@@ -176,4 +175,51 @@ void filterByStatus(const Queue& choDuyet, const List& dsDonDaXuLy, int trangTha
     } else {
         std::cout << "=> Tong cong co " << count << " don hang." << std::endl;
     }
+}
+
+void measureQuickSort(DonHang mangGoc[], int n) {
+    if (n <= 0) {
+        std::cout << "Kich thuoc mang khong hop le" << std::endl;
+        return;
+    }
+
+    DonHang* mangTam = new DonHang[n];
+    for (int i = 0; i < n; i++) {
+        mangTam[i] = mangGoc[i];
+    }
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    quickSort(mangTam, 0, n - 1);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+
+    std::cout << "Thoi gian sap xep Quick Sort: " << elapsed.count() << " ms\n";
+
+    delete[] mangTam;
+}
+
+int measureBinarySearch(DonHang a[], int n, std::string ngayCanTim) {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    int result = binarySearchByDate(a, n, ngayCanTim); 
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+
+    std::cout << "Thoi gian chay binary search: " << elapsed.count() << " ms\n";
+    return result;
+}
+
+int measureLinearSearch(DonHang a[], int n, std::string ngayCanTim) {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    int result = linearSearchByDate(a, n, ngayCanTim); 
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+
+    std::cout << "Thoi gian chay linear search: " << elapsed.count() << " ms\n";
+    return result;
 }
