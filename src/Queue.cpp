@@ -1,48 +1,48 @@
 #include "Queue.h"
 
-// Khởi tạo Queue an toàn
+// Khởi tạo Queue
 void initQueue(Queue& q) {
     q.pHead = nullptr;
     q.pTail = nullptr;
     q.size = 0;
 }
 
-// Khởi tạo List an toàn
+// Khởi tạo List
 void initList(List& l) {
     l.pHead = nullptr;
     l.pTail = nullptr;
     l.size = 0;
 }
 
-// Kiểm tra Queue rỗng (Sửa toán tử = thành ==)
+// Kiểm tra Queue rỗng
 bool isEmptyQueue(const Queue& q) {
     return q.pHead == nullptr;
 }
 
-// Kiểm tra List rỗng (Đồng bộ tên hàm với file .h và sửa = thành ==)
+// Kiểm tra List rỗng
 bool isEmptyList(const List& l) {
     return l.pHead == nullptr;
 }
 
-// Kiểm tra trùng maDonHang (Đồng bộ tên hàm isDuplicateId chuẩn camelCase, sửa lỗi vòng lặp vô hạn)
+// Kiểm tra tính duy nhất của mã đơn hàng trong toàn bộ hệ thống
 bool isDuplicateId(const Queue& q, const List& l, string maDonHang) {
-    // Duyệt Queue
+    // Duyệt Queue chờ duyệt
     Node* pCurr = q.pHead;
     while (pCurr != nullptr) {
-        if (pCurr->data.maDonHang == maDonHang) return true; // Sửa toán tử = thành ==
-        pCurr = pCurr->pNext; // Sửa từ pNext thành pCurr->pNext
+        if (pCurr->data.maDonHang == maDonHang) return true;
+        pCurr = pCurr->pNext;
     }
     
-    // Duyệt List
+    // Duyệt List đã xử lý
     pCurr = l.pHead;
     while (pCurr != nullptr) {
         if (pCurr->data.maDonHang == maDonHang) return true;
-        pCurr = pCurr->pNext; // Sửa từ pNext thành pCurr->pNext
+        pCurr = pCurr->pNext;
     }
     return false;
 }
 
-// Thêm đơn hàng vào cuối Queue (FIFO)
+// Thêm đơn hàng vào cuối Queue (Đảm bảo tính FIFO)
 void enqueue(Queue& q, DonHang dh) {
     Node* newNode = new Node;
     newNode->data = dh;
@@ -59,7 +59,7 @@ void enqueue(Queue& q, DonHang dh) {
     q.size++;
 }
 
-// Lấy đơn hàng ra khỏi đầu Queue (Sửa lỗi sai chính tả kiểu dữ liệu Donhang)
+// Lấy và xóa đơn hàng khỏi đầu Queue
 bool dequeue(Queue& q, DonHang& dh) {
     if (isEmptyQueue(q)) {
         return false;
@@ -71,12 +71,12 @@ bool dequeue(Queue& q, DonHang& dh) {
     if (q.pHead == nullptr) {
         q.pTail = nullptr;
     }
-    delete temp; // Giải phóng vùng nhớ để tránh rò rỉ (Memory Leak)
+    delete temp; // Giải phóng vùng nhớ
     q.size--;
     return true;
 }
 
-// Xem thông tin đơn đầu Queue nhưng không xóa
+// Trích xuất thông tin đơn hàng ở đầu Queue (Không xóa)
 bool front(const Queue& q, DonHang& dh) {
     if (isEmptyQueue(q)) {
         return false;
@@ -85,7 +85,7 @@ bool front(const Queue& q, DonHang& dh) {
     return true;
 }
 
-// Thêm đơn hàng vào cuối List đơn đã xử lý
+// Thêm đơn hàng vào cuối List
 void addToList(List& l, DonHang dh) {
     Node* pNew = new Node;
     pNew->data = dh;
@@ -102,7 +102,7 @@ void addToList(List& l, DonHang dh) {
     l.size++;
 }
 
-// Xóa đơn trong Queue bằng cơ chế Queue phụ (Bảo toàn nguyên tắc FIFO)
+// Xóa một đơn hàng trong Queue thông qua Queue phụ (Bảo toàn FIFO)
 bool deleteOrderFromQueue(Queue& q, string maDonHang) {
     if (isEmptyQueue(q)) return false;
     
@@ -111,18 +111,18 @@ bool deleteOrderFromQueue(Queue& q, string maDonHang) {
     bool found = false;
     DonHang dh;
     
-    // Đổ hết sang Queue phụ, chừa node cần xóa ra
+    // Đổ dữ liệu sang Queue phụ, ngoại trừ phần tử cần xóa
     while (!isEmptyQueue(q)) {
         dequeue(q, dh);
         if (dh.maDonHang == maDonHang) {
-            found = true; // Bỏ qua node này (chính là hành động xóa)
+            found = true; 
         }
         else {
             enqueue(qPhu, dh);
         }
     }
     
-    // Đổ ngược dữ liệu từ Queue phụ về lại Queue chính để bảo toàn thứ tự ban đầu
+    // Đổ ngược dữ liệu về Queue chính
     while (!isEmptyQueue(qPhu)) {
         dequeue(qPhu, dh);
         enqueue(q, dh);
@@ -130,7 +130,7 @@ bool deleteOrderFromQueue(Queue& q, string maDonHang) {
     return found;
 }
 
-// Xóa đơn trong List bằng phương pháp cô lập và cắt Node
+// Xóa một đơn hàng trong List bằng cách cắt Node
 bool deleteOrderFromList(List& l, string maDonHang) {
     if (isEmptyList(l)) return false;
     
@@ -139,21 +139,19 @@ bool deleteOrderFromList(List& l, string maDonHang) {
     
     while (pCurr != nullptr) {
         if (pCurr->data.maDonHang == maDonHang) {
-            // Nếu node cần xóa nằm ở ngay đầu danh sách
             if (pCurr == l.pHead) {
                 l.pHead = l.pHead->pNext;
                 if (l.pHead == nullptr) {
                     l.pTail = nullptr;
                 }
             }
-            // Nếu node nằm ở giữa hoặc cuối danh sách
             else {
                 pPrev->pNext = pCurr->pNext;
                 if (pCurr == l.pTail) {
                     l.pTail = pPrev;
                 }
             }
-            delete pCurr; // Giải phóng bộ nhớ node bị cắt
+            delete pCurr; 
             l.size--;
             return true;
         }
@@ -163,7 +161,7 @@ bool deleteOrderFromList(List& l, string maDonHang) {
     return false;
 }
 
-// Giải phóng toàn bộ các Node trong Queue
+// Giải phóng toàn bộ bộ nhớ của Queue
 void clearQueue(Queue& q) {
     Node* pCurr = q.pHead;
     while (pCurr != nullptr) {
@@ -176,7 +174,7 @@ void clearQueue(Queue& q) {
     q.size = 0;
 }
 
-// Giải phóng toàn bộ các Node trong List
+// Giải phóng toàn bộ bộ nhớ của List
 void clearList(List& l) {
     Node* pCurr = l.pHead;
     while (pCurr != nullptr) {
