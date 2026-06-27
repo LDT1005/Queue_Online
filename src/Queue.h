@@ -1,4 +1,4 @@
-#pragma once
+
 #include "Structure.h"
 
 //Khởi tạo queue đầu
@@ -27,4 +27,4 @@ bool deleteOrderFromList(List& l, string maDonHang);
 
 //clear bộ nhớ
 void clearQueue(Queue& q);
-void clearList(List& l);
+

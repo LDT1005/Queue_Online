@@ -27,7 +27,7 @@ void quickSort(DonHang a[], int left, int right) {
         }
 
         if (i <= j) {
-            swap(a[i], a[j]);
+            std::swap(a[i], a[j]);
             i++;
             j--;
         }
@@ -42,7 +42,7 @@ void quickSort(DonHang a[], int left, int right) {
 }
 
 // 3. Thuật toán Tìm kiếm nhị phân (Binary Search)
-int binarySearchByDate(DonHang a[], int n, string ngayCanTim) {
+int binarySearchByDate(DonHang a[], int n, std::string ngayCanTim) {
     int left = 0;
     int right = n - 1;
 
@@ -65,7 +65,7 @@ int binarySearchByDate(DonHang a[], int n, string ngayCanTim) {
 }
 
 // 4. Thuật toán Tìm kiếm tuyến tính (Linear Search - Trả về count)
-int linearSearchByDate(DonHang a[], int n, string ngayCanTim) {
+int linearSearchByDate(DonHang a[], int n, std::string ngayCanTim) {
     int count = 0;
     for (int i = 0; i < n; i++) {
         if (a[i].ngayTao == ngayCanTim) {
@@ -76,10 +76,10 @@ int linearSearchByDate(DonHang a[], int n, string ngayCanTim) {
 }
 
 // 5. Luồng nghiệp vụ chính: Tìm kiếm theo ngày
-void searchByDate(const Queue& choDuyet, const List& dsDonDaXuLy, string ngayCanTim) {
+void searchByDate(const Queue& choDuyet, const List& dsDonDaXuLy, std::string ngayCanTim) {
     int tongSize = choDuyet.size + dsDonDaXuLy.size;
     if (tongSize == 0) {
-        cout << "He thong hien tai khong co don hang nao!" << endl;
+        std::cout << "He thong hien tai khong co don hang nao!" << std::endl;
         return;
     }
 
@@ -103,9 +103,9 @@ void searchByDate(const Queue& choDuyet, const List& dsDonDaXuLy, string ngayCan
     int foundIndex = binarySearchByDate(a, tongSize, ngayCanTim);
 
     if (foundIndex == -1) {
-        cout << "Khong tim thay don hang nao trong ngay: " << ngayCanTim << endl;
+        std::cout << "Khong tim thay don hang nao trong ngay: " << ngayCanTim << std::endl;
     } else {
-        cout << "--- DANH SACH DON HANG NGAY " << ngayCanTim << " ---" << endl;
+        std::cout << "--- DANH SACH DON HANG NGAY " << ngayCanTim << " ---" << std::endl;
         
         int leftScan = foundIndex;
         while (leftScan >= 0 && a[leftScan].ngayTao == ngayCanTim) {
@@ -119,13 +119,13 @@ void searchByDate(const Queue& choDuyet, const List& dsDonDaXuLy, string ngayCan
         
         int count = 0;
         for (int i = leftScan + 1; i < rightScan; i++) {
-            cout << "Ma DH: " << a[i].maDonHang 
+            std::cout << "Ma DH: " << a[i].maDonHang 
                  << " | Khach: " << a[i].tenKhachHang 
                  << " | Tien: " << a[i].tongTien 
-                 << " | Trang thai: " << a[i].trangThai << endl;
+                 << " | Trang thai: " << a[i].trangThai << std::endl;
             count++;
         }
-        cout << "=> Tong cong co " << count << " don hang." << endl;
+        std::cout << "=> Tong cong co " << count << " don hang." << std::endl;
     }
 
     delete[] a;
@@ -134,11 +134,11 @@ void searchByDate(const Queue& choDuyet, const List& dsDonDaXuLy, string ngayCan
 // 6. Luồng nghiệp vụ chính: Lọc theo trạng thái
 void filterByStatus(const Queue& choDuyet, const List& dsDonDaXuLy, int trangThai) {
     if (trangThai < 0 || trangThai > 3) {
-        cout << "Loi: Trang thai khong hop le! (Chi chap nhan 0, 1, 2, 3)" << endl;
+        std::cout << "Loi: Trang thai khong hop le! (Chi chap nhan 0, 1, 2, 3)" << std::endl;
         return;
     }
 
-    cout << "--- DANH SACH DON HANG TRANG THAI [" << trangThai << "] ---" << endl;
+    std::cout << "--- DANH SACH DON HANG TRANG THAI [" << trangThai << "] ---" << std::endl;
     int count = 0;
 
     // Duyệt Queue
@@ -146,11 +146,11 @@ void filterByStatus(const Queue& choDuyet, const List& dsDonDaXuLy, int trangTha
     while (pQueue != NULL) {
         if (pQueue->data.trangThai == trangThai) {
             // Đã bổ sung in Trang thai
-            cout << "Ma DH: " << pQueue->data.maDonHang 
+            std::cout << "Ma DH: " << pQueue->data.maDonHang 
                  << " | Khach: " << pQueue->data.tenKhachHang 
                  << " | Ngay: " << pQueue->data.ngayTao
                  << " | Tien: " << pQueue->data.tongTien 
-                 << " | Trang thai: " << pQueue->data.trangThai << endl; 
+                 << " | Trang thai: " << pQueue->data.trangThai << std::endl; 
             count++;
         }
         pQueue = pQueue->pNext;
@@ -161,19 +161,19 @@ void filterByStatus(const Queue& choDuyet, const List& dsDonDaXuLy, int trangTha
     while (pList != NULL) {
         if (pList->data.trangThai == trangThai) {
             // Đã bổ sung in Trang thai
-            cout << "Ma DH: " << pList->data.maDonHang 
+            std::cout << "Ma DH: " << pList->data.maDonHang 
                  << " | Khach: " << pList->data.tenKhachHang 
                  << " | Ngay: " << pList->data.ngayTao
                  << " | Tien: " << pList->data.tongTien 
-                 << " | Trang thai: " << pList->data.trangThai << endl;
+                 << " | Trang thai: " << pList->data.trangThai << std::endl;
             count++;
         }
         pList = pList->pNext;
     }
 
     if (count == 0) {
-        cout << "Khong co don hang nao o trang thai nay." << endl;
+        std::cout << "Khong co don hang nao o trang thai nay." << std::endl;
     } else {
-        cout << "=> Tong cong co " << count << " don hang." << endl;
+        std::cout << "=> Tong cong co " << count << " don hang." << std::endl;
     }
 }
