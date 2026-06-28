@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
-#include <iomanip> // Bổ sung thư viện định dạng xuất tiền tệ
+#include <iomanip> 
 #include "Structure.h"
 #include "Queue.h"
 #include "DataProcess.h"
@@ -9,7 +9,6 @@
 
 using namespace std;
 
-// Hàm hỗ trợ loại bỏ khoảng trắng thừa ở 2 đầu chuỗi
 string trimString(const string& str) {
     size_t first = str.find_first_not_of(" \t\r\n");
     if (string::npos == first) return "";
@@ -37,7 +36,7 @@ string NhapChuoiKhongRong(string thongBao) {
 string NhapNgayHopLe() {
     string ngay;
     while (true) {
-        cout << "Nhap ngay dat hang (YYYY-MM-DD, vd: 2026-05-10): ";
+        cout << "Nhap ngay dat hang (YYYY-MM-DD): ";
         getline(cin, ngay);
         ngay = trimString(ngay);
 
@@ -49,7 +48,7 @@ string NhapNgayHopLe() {
                 }
             }
             
-            // Nếu định dạng số đúng, kiểm tra tiếp logic tháng/ngày
+
             if (hopLe) {
                 int month = stoi(ngay.substr(5, 2));
                 int day = stoi(ngay.substr(8, 2));
@@ -73,7 +72,7 @@ string NhapNgayHopLe() {
 long long NhapTienHopLe() {
     long long tien;
     while (true) {
-        cout << "Nhap tong tien (VND): ";
+        cout << "Nhap tong tien: ";
         if (cin >> tien && tien > 0) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             return tien;
@@ -121,9 +120,9 @@ int NhapTrangThai(string thongBao, int minVal, int maxVal) {
 void MenuChinh(Queue& choDuyet, List& dsDonDaXuLy) {
     int luaChon;
     do {
-        cout << "\n=======================================================\n";
-        cout << "      QUAN LY DON DAT HANG TRUC TUYEN (QUEUE & LIST)   \n";
-        cout << "=======================================================\n";
+        cout << "\n=================================================\n";
+        cout << "        QUAN LY DON DAT HANG TRUC TUYEN   \n";
+        cout << "=================================================\n";
         cout << "1. Doc du lieu tu file\n";
         cout << "2. Them don hang moi vao Queue\n";
         cout << "3. Xoa don hang khoi he thong\n";
@@ -133,23 +132,23 @@ void MenuChinh(Queue& choDuyet, List& dsDonDaXuLy) {
         cout << "7. Loc don hang theo trang thai\n";
         cout << "8. Xem thong ke doanh thu\n";
         cout << "9. Ghi du lieu vao file & Thoat\n";
-        cout << "=======================================================\n";
+        cout << "==================================================\n";
 
         luaChon = NhapLuaChonMenu(); 
 
         switch (luaChon) {
         case 1: {
-            cout << "\n--- BAN CHON: DOC DU LIEU TU FILE ---\n";
-            string filename = NhapChuoiKhongRong("Nhap ten file de doc (VD: TestData_Nhom08.txt): ");
+            cout << "\n- DOC DU LIEU TU FILE -\n";
+            string filename = NhapChuoiKhongRong("Nhap ten file de doc: ");
             readFile(filename, choDuyet, dsDonDaXuLy);
             break;
         }
         case 2: {
-            cout << "\n--- BAN CHON: THEM DON HANG MOI ---\n";
-            string maDH = NhapChuoiKhongRong("Nhap Ma Don Hang (vd: DH001): ");
+            cout << "\n- THEM DON HANG MOI -\n";
+            string maDH = NhapChuoiKhongRong("Nhap ma don hang: ");
             
             if (isDuplicateId(choDuyet, dsDonDaXuLy, maDH)) {
-                cout << ">> LOI: Ma don hang '" << maDH << "' da ton tai trong he thong! Vui long them don khac.\n";
+                cout << ">> LOI: Ma don hang '" << maDH << "' Da ton tai trong he thong! Vui long them don khac\n";
                 break; 
             }
 
@@ -169,7 +168,7 @@ void MenuChinh(Queue& choDuyet, List& dsDonDaXuLy) {
             break;
         }
         case 3: {
-            cout << "\n--- BAN CHON: XOA DON HANG ---\n";
+            cout << "\n- XOA DON HANG -\n";
             string maXoa = NhapChuoiKhongRong("Nhap Ma Don Hang can xoa: ");
             
             if (deleteOrderFromQueue(choDuyet, maXoa)) {
@@ -184,12 +183,12 @@ void MenuChinh(Queue& choDuyet, List& dsDonDaXuLy) {
             break;
         }
         case 4: {
-            cout << "\n--- BAN CHON: XEM DANH SACH DON HANG ---\n";
+            cout << "\n- XEM DANH SACH DON HANG -\n";
             displayAllOrders(choDuyet, dsDonDaXuLy);
             break;
         }
         case 5: {
-            cout << "\n--- BAN CHON: XU LY DON HANG DAU QUEUE ---\n";
+            cout << "\n- XU LY DON HANG DAU QUEUE -\n";
             DonHang dhFront;
             if (front(choDuyet, dhFront)) {
                 cout << "Thong tin don hang dang cho xu ly:\n";
@@ -214,26 +213,26 @@ void MenuChinh(Queue& choDuyet, List& dsDonDaXuLy) {
             break;
         }
         case 6: {
-            cout << "\n--- BAN CHON: TIM KIEM DON HANG THEO NGAY ---\n";
+            cout << "\n- TIM KIEM DON HANG THEO NGAY -\n";
             string ngayTim = NhapNgayHopLe(); 
             searchByDate(choDuyet, dsDonDaXuLy, ngayTim);
             break;
         }
         case 7: {
-            cout << "\n--- BAN CHON: LOC DON HANG THEO TRANG THAI ---\n";
+            cout << "\n- LOC DON HANG THEO TRANG THAI -\n";
             cout << "Goi y trang thai: 0 (Cho duyet), 1 (Da duyet), 2 (Huy), 3 (Hoan thanh)\n";
             int ttLoc = NhapTrangThai("Nhap trang thai can loc (0-3): ", 0, 3);
             filterByStatus(choDuyet, dsDonDaXuLy, ttLoc);
             break;
         }
         case 8: {
-            cout << "\n--- BAN CHON: THONG KE DOANH THU ---\n";
+            cout << "\n- THONG KE DOANH THU -\n";
             calculateStatistics(choDuyet, dsDonDaXuLy);
             break;
         }
         case 9: {
-            cout << "\n--- BAN CHON: GHI FILE VA THOAT ---\n";
-            string filename = NhapChuoiKhongRong("Nhap ten file de ghi (VD: TestData_Nhom08.txt): ");
+            cout << "\n- GHI FILE VA THOAT -\n";
+            string filename = NhapChuoiKhongRong("Nhap ten file: ");
             
             bool ghiThanhCong = writeFile(filename, choDuyet, dsDonDaXuLy);
             
